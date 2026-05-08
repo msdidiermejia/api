@@ -1,0 +1,64 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srvapiregister-config
+  namespace: qa-interop-ns
+data:
+  ########################## VALIDATE REQUEST  ###########################
+  patterFormatDateContext: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2}$"
+
+  ############################### CODE RTA  ##############################
+  errorBusinessEmptyField: "E002"
+  errorInternalServerError: "E004"
+  errorInternalTimeout: "E003"
+  errorServiceUnavailable: "E005"
+  errorServicePR001: "E006"
+  errorServicePR99: "E007"
+
+  ############################### MESSAGE RESPONSE  ##############################
+  message.error.validationexception: "Ocurrió un error en la ejecución del servicio, el campo %s es obligatorio y debe estar en la estructura enviada"
+  message.request: "falta información en el request"
+  message.requiredFormat: "El campo %s no cumple con el formato requerido"
+  message.error.internalServerError: "Error interno del servidor"
+  message.error.serviceUnavailable: "Ocurrió un error en la ejecución del servicio"
+  message.error.timeout: "Ocurrió un error en la ejecución del servicio, debido a que se sobrepasó el límite de tiempo de espera del servicio."
+
+  ############################### AUDIT  ##############################
+  auditService.url: "http://10.200.8.114:8080/AuditApi/createAudit"
+  auditService.service: "SrvAPIRegister"
+  auditService.method.post: "POST"
+  auditService.status.S200: "200_SUCCESS_STATUS"
+  auditService.status.S400: "400_BADREQUEST_STATUS"
+  auditService.status.S408: "408_REQUEST_TIMEOUT"
+  auditService.status.S500: "500_DEFAULTEXCEPTION_STATUS"
+  auditService.status.S503: "503_SERVICE_UNAVAILABLE"
+
+  ############################### CONFG APP ###################################
+  timeout: "5000"
+  spring.profiles.active: "qa"
+  server.error.include-message: "never"
+  server.error.include-binding-errors: "never"
+  server.error.whitelabel.enabled: "false"
+  server.error.include-stacktrace: "never"
+  logging.level.com.bun.validatetrxcustomer: "DEBUG"
+  logging.pattern.console: "%msg%n"
+  networkaddress.cache.ttl: "60"
+  networkaddress.cache.negative.ttl: "10"
+
+  ############################### BD  ##############################
+  drivedb: "oracle.jdbc.OracleDriver"
+
+  ######################## SECRET MANAGER ######################################
+  secret.name: "interop/srvapiregister"
+
+  ############################### SWAGGER  ##############################
+  spring.mvc.pathmatch.matching-strategy: "ant-path-matcher"
+  springdoc.api-docs.path: "/v3/api-docs"
+  springdoc.swagger-ui.path: "/swagger-ui.html"
+  springdoc.override-with-generic-response: "false"
+  springdoc.model-and-view-allowed: "true"
+  springdoc.cache.disabled: "true"
+  swagger.url.qa: "https://qa.bancounion.com"
+  swagger.url.prod: "https://prod.bancounion.com"
+  logConfig.writeLoginConsole: "true"

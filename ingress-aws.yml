@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: srvapiregisterv2
+  namespace: qa-interop-ns
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/tags: Environment=qa,IteraProject=BANCO_UNION_11907_CLOUD_2024,Project=interoperabilidad
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/security-groups: sg-09e8ccd1fc64804ca
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:183295434367:certificate/2b62e334-4723-4f9a-adc7-b005bd8e45ec
+    alb.ingress.kubernetes.io/group.name: alb-interop-nonmonetary
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+spec:
+  ingressClassName: alb
+  rules:
+    - host: srvapiregisterv2qa.bancounion.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: srvapiregisterv2
+                port:
+                  number: 8080
+

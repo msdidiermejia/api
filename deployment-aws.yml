@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: qa-interop-ns
+  name: srvapiregisterv2
+spec:
+  selector:
+    matchLabels:
+      app: srvapiregisterv2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: srvapiregisterv2
+    spec:
+      serviceAccountName: saapipse
+      containers:
+        - name: srvapiregisterv2
+          image: 183295434367.dkr.ecr.us-east-1.amazonaws.com/qa/interop-srvapiregister:2.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:           # <-- This parent field was missing
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          envFrom:
+            - configMapRef:
+                name: srvapiregisterv2-config

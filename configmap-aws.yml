@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: srvapiregisterv2-config
+  namespace: qa-interop-ns
+data:
+  spring.application.name : "SrvAPIRegister"
+  spring.mvc.pathmatch.matching-strategy : "ant-path-matcher"
+  logConfig.writeLoginConsole : "true"
+  
+  timeout : "50000"
+  patterFormatDateContext : "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2}$"
+  
+  auditService.url : "http://10.200.8.114:8080/AuditApi/createAudit"
+  auditService.service : "SrvAPIRegister"
+  auditService.processRegisterClient : "registerClient"
+  auditService.processInquiryCustomerRegister : "inquiryCustomerRegister"
+  auditService.method.post : "POST"
+  auditService.method.get : "GET"
+  auditService.status.S200 : "200_SUCCESS_STATUS"
+  auditService.status.S400 : "400_BADREQUEST_STATUS"
+  auditService.status.S404 : "404_NOTFOUND_STATUS"
+  auditService.status.S403 : "403_FORBIDDEN_STATUS"
+  auditService.status.S408 : "408_REQUEST_TIMEOUT"
+  auditService.status.S503 : "503_SERVICE_UNAVAILABLE"
+  auditService.status.S500 : "500_DEFAULTEXCEPTION_STATUS"
+  auditService.status.S401 : "401_UNAUTHORIZED_STATUS"
+  auditService.status.S409 : "409_CONFLICT"
+  
+  region : "us-east-1"
+  secretId : "pse/global_configuration"
+  userDB : "DB_USER_PORTAL_TRANSACCIONAL_GYF"
+  passDB : "DB_PASSWORD_PORTAL_TRANSACCIONAL_GYF"
+  urlDB : "jdbc:oracle:thin:@10.200.8.136:1521:VARIOS1"
+  spring.jpa.properties.hibernate.jdbc.time_zone : "UTC"
+  spring.jpa.database-platform : "org.hibernate.dialect.OracleDialect"
+  spring.devtools.restart.enabled : "false"
+  management.endpoints.web.exposure.include : "health,info"
+  
+  errorBusinessEmptyField : "SAN001"
+  errorInternalServerError : "SAN004"
+  errorServiceUnavailable : "SAN002"
+  errorInternalTimeout : "SAN003"
+  errorClientNotFound : "SAN005"
+  errorQuestionsIdRepet : "SAN006"
+  errorHabitsIdRepet : "SAN006"
+  
+  messageEmpty : "Ocurri\u00F3 un error en la ejecuci\u00F3n del servicio, por favor incluir %s en la estructura del mensaje"
+  messageFormat : "El campo %s no cumple con el formato requerido"
+  messageSize : "El campo %s no cumple con la longitud requerida"
+  messageInternalServerError : "Ocurri\u00F3 un error en la ejecuci\u00F3n del servicio"
+  messageTimeout : "Solicitud agotada"
+  messageServiceUnavailable : "Ocurri\u00F3 un error inesperado durante el procesamiento de la solicitud."
+  messageClientNotFound : "Ocurri\u00F3 un error al procesar la informaci\u00F3n del cliente. Verifique los datos ingresados."
+  messageQuestsionIdRepet : "Existen preguntas con id repetido"
+  messageHabitsIdRepet : "Existen habitos con id repetido"
+  
+  flagInsertQuestionAndHabits : "true"
+  
